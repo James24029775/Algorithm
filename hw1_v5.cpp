@@ -2,7 +2,7 @@
 // sqrt只會在最後才做
 // 使用自己的pow
 // 使用scanf
-// 正統解法的bound condition只能有2, 3點，但我不知道為甚麼index感覺有出錯，導致有些DnC無法處理大小為6的陣列
+// 小於100個點皆枚舉
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -19,29 +19,22 @@ double divideAndConquer(long long start, long long end) {
     long long i, j, k, tmp_index;
     double x_coor_1, y_coor_1, x_coor_2, y_coor_2;
     double min_dist = DBL_MAX, tmp_dist;
-    if (end - start + 1 == 2) {
-        x_coor_1 = od_by_x[start].first;
-        y_coor_1 = od_by_x[start].second;
-        x_coor_2 = od_by_x[end].first;
-        y_coor_2 = od_by_x[end].second;
-        return square(x_coor_1 - x_coor_2) + square(y_coor_1 - y_coor_2);
-
-    } else if (end - start + 1 == 3) {
+    if (end - start + 1 <= 100) {
         for (i = 0; i < end - start + 1; i++) {
-            if (start + i + 1 > end) {
-                tmp_index = start;
-            } else {
-                tmp_index = start + i + 1;
+            for ( j = i+1; j < end - start + 1; j++) {
+                if (i == j) {
+                    continue;
+                }
+                x_coor_1 = od_by_x[start + i].first;
+                y_coor_1 = od_by_x[start + i].second;
+                x_coor_2 = od_by_x[start + j].first;
+                y_coor_2 = od_by_x[start + j].second;
+                tmp_dist = square(x_coor_1 - x_coor_2) + square(y_coor_1 - y_coor_2);
+                min_dist = min(min_dist, tmp_dist);
             }
-            x_coor_1 = od_by_x[start + i].first;
-            y_coor_1 = od_by_x[start + i].second;
-            x_coor_2 = od_by_x[tmp_index].first;
-            y_coor_2 = od_by_x[tmp_index].second;
-            tmp_dist = square(x_coor_1 - x_coor_2) + square(y_coor_1 - y_coor_2);
-            min_dist = min(min_dist, tmp_dist);
         }
         return min_dist;
-    }
+    } 
 
     // Divide
     long long index = start + (end - start)/2;
