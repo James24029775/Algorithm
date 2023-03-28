@@ -1,3 +1,4 @@
+// æˆ‘çš„åŸæœ¬åšæ³•ï¼Œè‹¥ä¸­é–“é»å‰›å¥½æœ‰å…©å€‹åŒXåº§æ¨™ï¼Œæœƒå‡ºéŒ¯
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -44,6 +45,10 @@ double divideAndConquer(vector<coordinate_t> od_by_x, vector<coordinate_t> od_by
     double dist_right = divideAndConquer(od_by_x, od_by_y, index + 1, end);
     min_dist = min(dist_left, dist_right);
 
+    if (min_dist == 0){
+        retrun min_dist;
+    }
+
     vector<coordinate_t> left_points, right_points;
     double left_bound = od_by_x[start].point.first;
     double right_bound = od_by_x[end].point.first;
@@ -61,7 +66,7 @@ double divideAndConquer(vector<coordinate_t> od_by_x, vector<coordinate_t> od_by
 
     double left_x_coor, left_y_coor, right_x_coor, right_y_coor;
     double min_dist_across = DBL_MAX;
-    // ³oÃä­Y¤j©ómin_dist³£¥i¥Hª½±µ±Ë±ó¡A¦]¦¹®É¶¡¥i¥H¶i¤@¨B­°§C¡C
+    //  é€™é‚Šè‹¥å¤§æ–¼min_distéƒ½å¯ä»¥ç›´æ¥æ¨æ£„ï¼Œå› æ­¤æ™‚é–“å¯ä»¥é€²ä¸€æ­¥é™ä½ã€‚
     for (i = j = 0; i < left_points.size(); i++) {
         left_x_coor = left_points[i].point.first;
         left_y_coor = left_points[i].point.second;
